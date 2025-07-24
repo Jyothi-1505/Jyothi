@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task 2 - Contact & To-Do App</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 10px;
+      background-color: #065f46;
+      color: white;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    form {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #10b981;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #059669;
+    }
+
+    .todo-container {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      background-color: #ecfdf5;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .delete {
+      background: #ef4444;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Contact Form & Dynamic To-Do List</h1>
+  </header>
+
+  <div class="container">
+    <!-- Contact Form -->
+    <form id="contactForm">
+      <h2>Contact Us</h2>
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <button type="submit">Submit</button>
+    </form>
+
+    <!-- To-Do List -->
+    <div class="todo-container">
+      <h2>My To-Do List</h2>
+      <input type="text" id="todoInput" placeholder="Add a new task..." />
+      <button onclick="addTodo()">Add Task</button>
+      <ul id="todoList"></ul>
+    </div>
+  </div>
+
+  <script>
+    // Contact Form Validation
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+      if (!name || !emailPattern.test(email)) {
+        alert("Please enter a valid name and email.");
+        return;
+      }
+
+      alert("Form submitted successfully!");
+      this.reset();
+    });
+
+    // To-Do List Functionality
+    function addTodo() {
+      const input = document.getElementById("todoInput");
+      const task = input.value.trim();
+      if (task === "") return;
+
+      const li = document.createElement("li");
+      li.innerHTML = ${task} <button class="delete" onclick="removeTodo(this)">Delete</button>;
+      document.getElementById("todoList").appendChild(li);
+      input.value = "";
+    }
+
+    function removeTodo(btn) {
+      btn.parentElement.remove();
+    }
+  </script>
+</body>
+</html>
